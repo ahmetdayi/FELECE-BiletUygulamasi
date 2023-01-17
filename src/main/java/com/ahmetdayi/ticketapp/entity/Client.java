@@ -30,7 +30,19 @@ public class Client {
 
     private String matchingPassword;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "client")
     private List<BuyTicket> buyTicket;
 
+    public Client(String firstName, String lastName, String gender, String email, String password, String matchingPassword, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+        this.password = password;
+        this.matchingPassword = matchingPassword;
+        this.role = role;
+    }
 }

@@ -8,4 +8,5 @@ public class Constant {
     public static final String CLIENT_DOESNT_EXIST_EXCEPTION ="Client Doesn't Exist." ;
     public static final String WRONG_STATUE = "Wrong Statue.";
     public static final String SEAT_NUMBER_ALREADY_FULL = "Seat Number Already Full.";
+    public static final String TOKEN_NOT_VALID = "Token Not Valid.";
 }

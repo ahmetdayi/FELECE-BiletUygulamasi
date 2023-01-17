@@ -1,8 +1,7 @@
 package com.ahmetdayi.ticketapp.entity.converter;
 
 import com.ahmetdayi.ticketapp.entity.BuyTicket;
-import com.ahmetdayi.ticketapp.entity.response.BuyTicketResponse;
-
+import com.ahmetdayi.ticketapp.entity.response.BuyTicketResponseInUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,40 +10,31 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class BuyTicketConverter {
+public class BuyTicketInUserConverter {
 
     private final TripConverter tripConverter;
-
-    private final ClientConverter clientConverter;
-
-    public BuyTicketResponse convert(BuyTicket from){
-        if (from==null){
-            return null;
-        }
-        return new BuyTicketResponse
+    public BuyTicketResponseInUser convertInUser(BuyTicket from){
+        return new BuyTicketResponseInUser
                 (
                         from.getId(),
                         from.getSeatNumber(),
                         tripConverter.convert(from.getTrip()),
-                        clientConverter.convert(from.getClient()),
                         from.getStatue()
+
                 );
     }
 
-    public List<BuyTicketResponse> convert(List<BuyTicket> fromList){
+    public List<BuyTicketResponseInUser> convertInUser(List<BuyTicket> fromList){
         if(fromList==null){
             return null;
         }
 
-        return fromList.stream().map(buyTicket -> new BuyTicketResponse
+        return fromList.stream().map(buyTicket -> new BuyTicketResponseInUser
                 (
                         buyTicket.getId(),
                         buyTicket.getSeatNumber(),
                         tripConverter.convert(buyTicket.getTrip()),
-                        clientConverter.convert(buyTicket.getClient()),
                         buyTicket.getStatue()
                 )).collect(Collectors.toList());
     }
-
-
 }
