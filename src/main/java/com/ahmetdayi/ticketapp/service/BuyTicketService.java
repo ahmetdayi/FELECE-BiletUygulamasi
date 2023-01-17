@@ -1,4 +1,4 @@
-package com.ahmetdayi.ticketapp.repository.service;
+package com.ahmetdayi.ticketapp.service;
 
 import com.ahmetdayi.ticketapp.core.constant.Constant;
 import com.ahmetdayi.ticketapp.core.exception.SeatNumberAlreadyFullException;
