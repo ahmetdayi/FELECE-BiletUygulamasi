@@ -22,9 +22,12 @@ public class Client {
 
     private String lastName;
 
+    private String gender;
+
     private String email;
 
     private String password;
+
     private String matchingPassword;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "client")

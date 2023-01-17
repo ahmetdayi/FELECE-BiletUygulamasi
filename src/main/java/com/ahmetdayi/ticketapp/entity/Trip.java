@@ -30,4 +30,10 @@ public class Trip {
     private Route route;
 
 
+    public Trip(double price, LocalDateTime departureTime, Vehicle vehicle, Route route) {
+        this.price = price;
+        this.departureTime = departureTime;
+        this.vehicle = vehicle;
+        this.route = route;
+    }
 }
