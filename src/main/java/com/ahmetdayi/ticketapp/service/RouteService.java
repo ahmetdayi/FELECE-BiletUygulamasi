@@ -3,7 +3,7 @@ package com.ahmetdayi.ticketapp.service;
 import com.ahmetdayi.ticketapp.core.constant.Constant;
 import com.ahmetdayi.ticketapp.core.exception.RouteDoesntExistException;
 import com.ahmetdayi.ticketapp.entity.Route;
-import com.ahmetdayi.ticketapp.entity.converter.RouteConverter;
+
 
 import com.ahmetdayi.ticketapp.repository.RouteRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,6 @@ import java.util.List;
 public class RouteService {
 
     private final RouteRepository routeRepository;
-
-
 
 
     protected Route findById(int id){

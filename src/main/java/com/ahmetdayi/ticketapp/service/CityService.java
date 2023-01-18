@@ -10,6 +10,8 @@ import com.ahmetdayi.ticketapp.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CityService {
@@ -18,6 +20,9 @@ public class CityService {
 
     private final CityConverter cityConverter;
 
+    public List<CityResponse> findAll(){
+        return cityConverter.convert(cityRepository.findAll());
+    }
 
     public CityResponse create(CreateCityRequest request){
         City city = new City(request.getName());
