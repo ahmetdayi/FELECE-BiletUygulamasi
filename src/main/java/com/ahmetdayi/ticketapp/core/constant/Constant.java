@@ -9,4 +9,6 @@ public class Constant {
     public static final String WRONG_STATUE = "Wrong Statue.";
     public static final String SEAT_NUMBER_ALREADY_FULL = "Seat Number Already Full.";
     public static final String TOKEN_NOT_VALID = "Token Not Valid.";
+    public static final String EMAIL_ALREADY_EXIST = "Email Already Exist.";
+    public static final String TICKET_DOESNT_AVAILABLE = "Ticket Doesn't Available.";
 }
