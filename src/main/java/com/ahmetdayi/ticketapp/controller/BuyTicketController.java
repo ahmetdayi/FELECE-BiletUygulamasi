@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 @RestController
@@ -32,13 +32,13 @@ public class BuyTicketController {
 
     @GetMapping("/get_by_client_id_and_date")
     public ResponseEntity<List<BuyTicketResponse>> getByClientIdAndDate
-            (@RequestParam int clientId,@Valid @RequestParam LocalDateTime dateTime){
+            (@RequestParam int clientId,@Valid @RequestParam String dateTime){
         return new ResponseEntity<>(buyTicketService.getByClientIdAndDate(clientId,dateTime),HttpStatus.OK);
     }
 
-    @GetMapping("/get_by_client_id/{clientId}_and_route/{startingPoint}/{endingPoint}")
-    public ResponseEntity<List<BuyTicketResponse>> getByClientIdAndRoute(@PathVariable @Valid int clientId,@PathVariable @Valid int startingPoint,@PathVariable @Valid int endingPoint){
-        return new ResponseEntity<>(buyTicketService.getByClientIdAndRoute(clientId, startingPoint, endingPoint),HttpStatus.OK);
+    @GetMapping("/get_by_client_id/{clientId}/and_route/{startingPointId}/{endingPointId}")
+    public ResponseEntity<List<BuyTicketResponse>> getByClientIdAndRoute(@PathVariable @Valid int clientId,@PathVariable @Valid int startingPointId,@PathVariable @Valid int endingPointId){
+        return new ResponseEntity<>(buyTicketService.getByClientIdAndRoute(clientId, startingPointId, endingPointId),HttpStatus.OK);
     }
 
     @GetMapping("/get_by_client_id/{clientId}_and_statue/{statue}")

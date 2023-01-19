@@ -8,10 +8,13 @@ import com.ahmetdayi.ticketapp.entity.converter.TripConverter;
 import com.ahmetdayi.ticketapp.entity.request.CreateTripRequest;
 import com.ahmetdayi.ticketapp.entity.response.TripResponse;
 import com.ahmetdayi.ticketapp.repository.TripRepository;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,8 +41,10 @@ public class TripService {
         return tripConverter.convert(tripRepository.save(trip));
     }
 
-    public List<TripResponse> getByDepartureTime(LocalDateTime dateTime){
-        return tripConverter.convert(tripRepository.findByDepartureTime(dateTime));
+    public List<TripResponse> getByDepartureTime(@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd@HH:mm:ss")
+                                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) String dateTime){
+        LocalDateTime dateTime1 = LocalDateTime. parse(dateTime, DateTimeFormatter.ISO_DATE_TIME);
+        return tripConverter.convert(tripRepository.findByDepartureTime(dateTime1));
     }
 
     public List<TripResponse> getByRoute(int startingPoint , int endingPoint){

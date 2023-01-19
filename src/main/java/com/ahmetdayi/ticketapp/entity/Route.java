@@ -27,4 +27,9 @@ public class Route {
 
     @OneToOne(mappedBy = "route",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Trip trip;
+
+    public Route(City startingPoint, City endingPoint) {
+        this.startingPoint = startingPoint;
+        this.endingPoint = endingPoint;
+    }
 }

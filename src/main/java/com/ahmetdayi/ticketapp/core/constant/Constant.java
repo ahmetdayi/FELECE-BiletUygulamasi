@@ -11,4 +11,5 @@ public class Constant {
     public static final String TOKEN_NOT_VALID = "Token Not Valid.";
     public static final String EMAIL_ALREADY_EXIST = "Email Already Exist.";
     public static final String TICKET_DOESNT_AVAILABLE = "Ticket Doesn't Available.";
+    public static final String REFRESH_TOKEN_NOT_AVAILABLE = "Refresh Token Not Available.";
 }

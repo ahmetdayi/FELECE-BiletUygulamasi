@@ -12,10 +12,13 @@ import com.ahmetdayi.ticketapp.entity.request.CreateBuyTicketRequest;
 import com.ahmetdayi.ticketapp.entity.request.UpdateVehicleRequest;
 import com.ahmetdayi.ticketapp.entity.response.BuyTicketResponse;
 import com.ahmetdayi.ticketapp.repository.BuyTicketRepository;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -62,10 +65,18 @@ public class BuyTicketService {
                 );
     }
 
-    public List<BuyTicketResponse> getByClientIdAndDate(int clientId, LocalDateTime dateTime) {
+
+    public List<BuyTicketResponse> getByClientIdAndDate
+    (
+            int clientId,
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            String dateTime
+    ) {
+        LocalDateTime dateTime1 = LocalDateTime. parse(dateTime, DateTimeFormatter.ISO_DATE_TIME);
         return buyTicketConverter.convert
                 (buyTicketRepository.findByClient_IdAndTrip_DepartureTime
-                        (clientService.findById(clientId).getId(), dateTime));
+                        (clientService.findById(clientId).getId(), dateTime1));
     }
 
     public List<BuyTicketResponse> getByClientIdAndRoute(int clientId, int startingPointId, int endingPointId) {

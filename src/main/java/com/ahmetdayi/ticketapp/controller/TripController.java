@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 @RequestMapping("/trip")
@@ -24,8 +24,9 @@ public class TripController {
         return new ResponseEntity<>(tripService.create(request), HttpStatus.CREATED);
     }
 
+
     @GetMapping("/get_by_departure_time")
-    public ResponseEntity<List<TripResponse>> getByDepartureTime(@RequestParam @Valid LocalDateTime dateTime){
+    public ResponseEntity<List<TripResponse>> getByDepartureTime(@RequestParam @Valid String dateTime){
         return new ResponseEntity<>(tripService.getByDepartureTime(dateTime),HttpStatus.OK);
     }
 

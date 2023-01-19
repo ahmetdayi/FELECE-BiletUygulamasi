@@ -36,9 +36,9 @@ public class SecurityConfig {
                 cors().
                 and().
                 authorizeRequests(auth -> {
-            auth.antMatchers("/brand/**","/color/**").hasAuthority("ADMIN");
-            auth.antMatchers("/car/**","/rental/**","/image/**").hasAnyAuthority("ADMIN", "USER");
-
+            auth.antMatchers().hasAuthority("ADMIN");
+            auth.antMatchers().hasAnyAuthority("ADMIN", "USER");
+//"/vehicle/**","/route/**","/but_ticket/get_by_client_id/{clientId}"
             auth.anyRequest().authenticated();
         }).sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().
@@ -47,7 +47,7 @@ public class SecurityConfig {
     }
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers( "/login","/customer/**").
+        return (web) -> web.ignoring().antMatchers( "/auth/login","/auth/**","/route/**","/buy_ticket/**","/city/**","/client/**","/trip/**","/vehicle/**").
                 antMatchers("/swagger-ui/**", "/v3/api-docs/**");
     }
 
