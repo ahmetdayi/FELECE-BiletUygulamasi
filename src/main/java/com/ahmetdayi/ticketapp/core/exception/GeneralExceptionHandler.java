@@ -58,10 +58,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> vehicleDoesntExistExceptionHandler(VehicleDoesntExistException exception)  {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler(RefreshTokenNotAvailableException.class)
-    public ResponseEntity<?> refreshTokenNotAvailableExceptionHandler(RefreshTokenNotAvailableException exception)  {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
+
     @ExceptionHandler(WrongStatueException.class)
     public ResponseEntity<?> wrongStatueExceptionHandler(WrongStatueException exception)  {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);

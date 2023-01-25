@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -28,6 +29,10 @@ public class TripService {
 
     private final TripConverter tripConverter;
 
+    public List<TripResponse> findAll(){
+        return tripConverter.convert(tripRepository.findAll());
+    }
+
     public TripResponse create(CreateTripRequest request) {
 
         Trip trip = new Trip
@@ -41,10 +46,10 @@ public class TripService {
         return tripConverter.convert(tripRepository.save(trip));
     }
 
-    public List<TripResponse> getByDepartureTime(@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd@HH:mm:ss")
-                                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) String dateTime){
-        LocalDateTime dateTime1 = LocalDateTime. parse(dateTime, DateTimeFormatter.ISO_DATE_TIME);
-        return tripConverter.convert(tripRepository.findByDepartureTime(dateTime1));
+    public List<TripResponse> getByDepartureTime( String dateTime){
+        LocalDate dateTime1 = LocalDate. parse(dateTime, DateTimeFormatter.ISO_DATE);
+        return findAll().stream().filter(tripResponse -> tripResponse.getDepartureTime().toLocalDate().toString().equals(dateTime1.toString())).toList();
+
     }
 
     public List<TripResponse> getByRoute(int startingPoint , int endingPoint){
@@ -57,6 +62,18 @@ public class TripService {
         List<TripResponse> tripList = getByRoute(startingPoint, endingPoint);
         return tripList.stream()
                 .filter(tripResponse -> tripResponse.getVehicle().getSeatCount()!=0).collect(Collectors.toList());
+    }
+
+    public List<TripResponse>
+    findByRoute_StartingPoint_IdAndRoute_EndingPoint_IdAndAndDepartureTime(
+            int startingPointId,
+            int endingPointId,
+            String dateTime){
+        LocalDate localDate = LocalDate.parse(dateTime,DateTimeFormatter.ISO_DATE);
+        System.out.println(localDate);
+        List<Trip> byRouteIn = tripRepository.findByRouteIn(routeService.findByStartingPoint_IdAndEndingPoint_Id(startingPointId, endingPointId));
+        List<Trip> collect = byRouteIn.stream().filter(trip -> trip.getDepartureTime().toLocalDate().toString().equals(localDate.toString())).toList();
+        return tripConverter.convert(collect);
     }
 
     public Trip findById(int id){
