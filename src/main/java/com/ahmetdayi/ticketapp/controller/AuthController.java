@@ -28,17 +28,17 @@ public class AuthController {
     private final ClientService clientService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request){
+    public ResponseEntity<LoginResponse> login( @RequestBody @Valid LoginRequest request){
         return new ResponseEntity<>(authService.login(request), HttpStatus.OK);
     }
 
     @PostMapping("/register_user")
-    public ResponseEntity<CreateClientResponse> registerUser(@Valid @RequestBody CreateClientRequest request){
+    public ResponseEntity<CreateClientResponse> registerUser(@RequestBody @Valid  CreateClientRequest request){
         return new ResponseEntity<>(clientService.createUser(request),HttpStatus.CREATED);
     }
 
     @PostMapping("/register_admin")
-    public ResponseEntity<CreateClientResponse> registerAdmin(@Valid @RequestBody CreateClientRequest request){
+    public ResponseEntity<CreateClientResponse> registerAdmin( @RequestBody @Valid CreateClientRequest request){
         return new ResponseEntity<>(clientService.createAdmin(request),HttpStatus.CREATED);
     }
 

@@ -4,15 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateBuyTicketRequest {
 
+    @NotNull
     private int seatNumber;
-
+    @NotNull
     private int tripId;
-
+    @NotNull
     private int clientId;
 
 }

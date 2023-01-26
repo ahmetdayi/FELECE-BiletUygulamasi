@@ -19,7 +19,7 @@ public class CityController {
     private final CityService cityService;
 
     @PostMapping("/create_city")
-    public ResponseEntity<CityResponse> create(CreateCityRequest request){
+    public ResponseEntity<CityResponse> create(@RequestBody @Valid CreateCityRequest request){
         return new ResponseEntity<>(cityService.create(request), HttpStatus.CREATED);
     }
 

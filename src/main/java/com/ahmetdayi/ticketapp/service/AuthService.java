@@ -2,6 +2,7 @@ package com.ahmetdayi.ticketapp.service;
 
 import com.ahmetdayi.ticketapp.core.security.JwtUtil;
 
+import com.ahmetdayi.ticketapp.entity.Client;
 import com.ahmetdayi.ticketapp.entity.converter.LoginConverter;
 
 import com.ahmetdayi.ticketapp.entity.request.LoginRequest;
@@ -28,7 +29,10 @@ public class AuthService {
                 (request.getEmail(),
                         request.getPassword());
         Authentication authenticate = authenticationManager.authenticate(token);
-        return converter.convert(jwtUtil.generateToken(authenticate));
+        Client client = clientService.findByEmail(authenticate.getName());
+        String role = client.getRole().toString();
+
+        return converter.convert(jwtUtil.generateToken(authenticate),role,client.getId());
     }
 
 

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginConverter {
 
-    public LoginResponse convert(String token){
-        return new LoginResponse(token);
+    public LoginResponse convert(String token,String role,int clientId){
+        return new LoginResponse(token,role,clientId);
 
     }
 }
