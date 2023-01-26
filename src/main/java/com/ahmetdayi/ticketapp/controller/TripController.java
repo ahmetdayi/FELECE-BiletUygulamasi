@@ -3,9 +3,9 @@ package com.ahmetdayi.ticketapp.controller;
 import com.ahmetdayi.ticketapp.entity.request.CreateTripRequest;
 import com.ahmetdayi.ticketapp.entity.response.TripResponse;
 import com.ahmetdayi.ticketapp.service.TripService;
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +49,15 @@ public class TripController {
                 startingPointId, endingPointId, dateTime),HttpStatus.OK);
     }
 
+    @PutMapping("update_trip/{tripId}/startingPointId/{startingPointId}/endingPointId/{endingPointId}")
+    public ResponseEntity<TripResponse> updateRoute
+            (@PathVariable @Valid int tripId,@PathVariable @Valid int startingPointId,@PathVariable @Valid int endingPointId){
+        return new ResponseEntity<>(tripService.updateRoute(tripId, startingPointId, endingPointId),HttpStatus.CREATED);
+    }
+
     @GetMapping("/get_by_route/{startingPoint}/{endingPoint}_and_vehicle_empty")
-    public ResponseEntity<List<TripResponse>> getByRouteAndVehicleEmpty(@PathVariable @Valid int startingPoint,@PathVariable @Valid int endingPoint){
+    public ResponseEntity<List<TripResponse>> getByRouteAndVehicleEmpty
+            (@PathVariable @Valid int startingPoint,@PathVariable @Valid int endingPoint){
         return new ResponseEntity<>(tripService.getByRouteAndVehicleEmpty(startingPoint, endingPoint),HttpStatus.OK);
     }
 

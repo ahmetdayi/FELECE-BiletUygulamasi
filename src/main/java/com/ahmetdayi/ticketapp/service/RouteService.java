@@ -26,12 +26,27 @@ public class RouteService {
 
     private final RouteConverter routeConverter;
 
+    public List<RouteResponse> getAll(){
+        return routeConverter.convert(routeRepository.findAll());
+    }
+
     public RouteResponse create(CreateRouteRequest request){
         City starting = cityService.findById(request.getStartingPointId());
         City ending = cityService.findById(request.getEndingPointId());
 
         Route route = new Route(starting,ending);
         return routeConverter.convert(routeRepository.save(route));
+    }
+
+    public RouteResponse update(int id ,int startingPointId,int endingPointId){
+        Route route = findById(id);
+        route.getEndingPoint().setId(cityService.findById(endingPointId).getId());
+        route.getStartingPoint().setId(cityService.findById(startingPointId).getId());
+        return routeConverter.convert(routeRepository.save(route));
+    }
+
+    public void deleteById(int id){
+        routeRepository.deleteById(findById(id).getId());
     }
 
     protected Route findById(int id){

@@ -8,13 +8,13 @@ import com.ahmetdayi.ticketapp.entity.converter.TripConverter;
 import com.ahmetdayi.ticketapp.entity.request.CreateTripRequest;
 import com.ahmetdayi.ticketapp.entity.response.TripResponse;
 import com.ahmetdayi.ticketapp.repository.TripRepository;
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,6 +43,14 @@ public class TripService {
                         routeService.findById(request.getRouteId())
                 );
 
+        return tripConverter.convert(tripRepository.save(trip));
+    }
+
+    public TripResponse updateRoute(int tripId,int startingPointId,int endingPointId){
+        Trip trip = findById(tripId);
+        trip.getRoute().getStartingPoint().setId(startingPointId);
+        trip.getRoute().getEndingPoint().setId(endingPointId);
+        routeService.update(trip.getRoute().getId(),startingPointId,endingPointId);
         return tripConverter.convert(tripRepository.save(trip));
     }
 
